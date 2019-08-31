@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/place-finder/static/css/main.4e551f47.chunk.css",
+    "main.js": "/place-finder/static/js/main.dffaa9a5.chunk.js",
+    "main.js.map": "/place-finder/static/js/main.dffaa9a5.chunk.js.map",
+    "runtime~main.js": "/place-finder/static/js/runtime~main.f47a5ce5.js",
+    "runtime~main.js.map": "/place-finder/static/js/runtime~main.f47a5ce5.js.map",
+    "static/js/2.1395e66c.chunk.js": "/place-finder/static/js/2.1395e66c.chunk.js",
+    "static/js/2.1395e66c.chunk.js.map": "/place-finder/static/js/2.1395e66c.chunk.js.map",
+    "index.html": "/place-finder/index.html",
+    "precache-manifest.b0a2054da1a72371223a043cb887a725.js": "/place-finder/precache-manifest.b0a2054da1a72371223a043cb887a725.js",
+    "service-worker.js": "/place-finder/service-worker.js",
+    "static/css/main.4e551f47.chunk.css.map": "/place-finder/static/css/main.4e551f47.chunk.css.map"
+  }
+}
