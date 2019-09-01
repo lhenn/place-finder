@@ -36,6 +36,13 @@ a {
   margin:3%;
 }
 
+.err{
+  font-family:$accent-font;
+  color:$light-blue;
+  margin: 0 10%;
+  text-align: center;
+}
+
 .landing, h1, form {
   display:flex;
   flex-direction: column;
@@ -82,12 +89,7 @@ a {
     padding:10px;
     border-radius:20px;
   }
-  .err{
-    font-family:$accent-font;
-    color:$light-blue;
-    margin: 0 10%;
-    text-align: center;
-  }
+
 } // end .landing
 
 .places{

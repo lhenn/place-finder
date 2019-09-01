@@ -7,7 +7,8 @@ import Loader from '../Loader'
 class PlaceListContainer extends Component {
   state = {
     isLoaded: false,
-    places:[]
+    places:[],
+    err:false
   }
   componentDidMount() {
     this.getPlaces(this.props.lat, this.props.lng, this.props.radius);
@@ -24,21 +25,54 @@ class PlaceListContainer extends Component {
     })
     .then(response => {return response.json();} )
     .then(json => {
-      console.log(json.response)
-      this.setState({
-        places: json.response.groups[0].items,
-        isLoaded:true
-      })
+      console.log(json)
+      if(json.meta.code===200) this.updatePlaceList(json.response.groups[0].items);
+      else this.handleError();
     })
-    .catch(err => {console.log(err);} )
+    .catch(err => {
+      console.log(err);
+    })
+  }
+  updatePlaceList = (items) => {
+    this.setState({
+      places: items,
+      isLoaded:true
+    })
+  }
+  handleError = () => {
+    this.setState({
+      isLoaded:true,
+      err:true
+    })
   }
   render() {
-    const content = this.state.isLoaded ? <PlaceList places={this.state.places}/> : <Loader/>
+    const Content = () => {
+      if(this.state.isLoaded && this.state.err) return ( // error in fetching data
+        <div className='err'>
+          Sorry, something went wrong. <br></br>
+          <BackNav label='home' linkTo='/'/>
+        </div>
+      )
+      if(this.state.isLoaded &&  // no results found
+        !this.state.err &&
+        this.state.places.length === 0) return (
+          <div className='err'>
+            No places found. Please try a bigger radius. <br></br>
+            <BackNav label='home' linkTo='/'/>
+          </div>
+        )
+      if(this.state.isLoaded && !this.state.err) return ( // results found
+        <PlaceList places={this.state.places}/>
+      )
+      return <Loader/>
+    };
+
+    //const content = this.state.isLoaded ? <PlaceList places={this.state.places}/> : <Loader/>
     return(
       <div className='places'>
         <BackNav label="Filter" linkTo="/"/>
         <h2> Results </h2>
-        {content}
+        <Content/>
       </div>
     )
   }
