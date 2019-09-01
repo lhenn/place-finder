@@ -43,7 +43,7 @@ class App extends Component {
       default:
         this.setState({err:"An unknown error occurred."});
     }
-}
+  }
   handleRadiusData = (radius) => {
     this.setState({
       radius:radius

@@ -25,7 +25,6 @@ class PlaceListContainer extends Component {
     })
     .then(response => {return response.json();} )
     .then(json => {
-      console.log(json)
       if(json.meta.code===200) this.updatePlaceList(json.response.groups[0].items);
       else this.handleError();
     })
@@ -67,7 +66,6 @@ class PlaceListContainer extends Component {
       return <Loader/>
     };
 
-    //const content = this.state.isLoaded ? <PlaceList places={this.state.places}/> : <Loader/>
     return(
       <div className='places'>
         <BackNav label="Filter" linkTo="/"/>

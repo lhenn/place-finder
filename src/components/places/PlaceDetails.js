@@ -23,7 +23,6 @@ class PlaceDetails extends Component {
     })
     .then(response => {return response.json();} )
     .then(json => {
-      console.log(json.response.venue)
       this.setState({
         venue: json.response.venue,
         isLoaded:true
