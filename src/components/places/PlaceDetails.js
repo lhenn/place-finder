@@ -32,14 +32,14 @@ class PlaceDetails extends Component {
   }
   render() {
 
-    const url = this.state.isLoaded ? (
+    const url = this.state.isLoaded && this.state.venue.url ? (
       <a href={this.state.venue.url}><FontAwesomeIcon className="icon" icon={faLink}/>website</a>
-    ) : <div>No website available</div>
+    ) : <div className='err'>No website available</div>
 
     const content = this.state.isLoaded ? (
         <div className='place-details'>
           <h2>{this.state.venue.name}</h2>
-          {this.state.venue.categories[0].name}
+          <span className="category">{this.state.venue.categories[0].name}</span>
           <div className="address">
             {this.state.venue.location.formattedAddress[0]}, <br></br>
             {this.state.venue.location.formattedAddress[1]}

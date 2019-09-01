@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
 import Landing from './components/landing/Landing'
 import PlaceListContainer from './components/places/PlaceListContainer'
@@ -52,7 +52,7 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
+      <HashRouter basename='/'>
         <div className="app">
           <Switch>
             <Route
@@ -79,7 +79,7 @@ class App extends Component {
             <Route path='/place/:id' component={PlaceDetails} />
           </Switch>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }
