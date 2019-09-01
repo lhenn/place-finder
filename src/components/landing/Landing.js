@@ -1,57 +1,35 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMapPin } from '@fortawesome/free-solid-svg-icons'
 
-class Landing extends Component {
-  state = {
-    lat: '',
-    lng: '',
-    distanceRadius:null
+const Landing = ({handleRadiusData}) => {
+
+  // sends user-selected radius back to parent component
+  const handleChange = (e) => {
+    handleRadiusData(e.target.value);
   }
-  componentDidMount() {
-    this.findUserLocation();
-  }
-  findUserLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.updatePosition);
-    } else {
-      console.log("Geolocation is not supported by this browser.");
-    }
-  }
-  updatePosition = (position) => {
-    console.log("found location", position)
-    this.setState({
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    })
-  }
-  handleChange = (e) => {
-    this.setState({
-      distanceRadius:e.target.value
-    });
-    console.log("changed", this.state);
-  }
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("submitting");
-  }
-  render() {
-    return(
-      <div className="landing">
-        <h1>PlaceFinder</h1>
-        <form action="handleSubmit">
-          <div className="input-group">
-            <label htmlFor="distance-select">Find me places within:</label>
-            <select id="distance-select" onChange={this.handleChange}>
-              <option value="2">2 km</option>
-              <option value="5">5 km</option>
-              <option value="10">10 km</option>
-            </select>
-          </div>
-          <button onClick={this.handleSubmit}>explore!</button>
-        </form>
+
+  return(
+    <div className="landing">
+      <h1>PlaceFinder</h1>
+      <div className="icon-wrapper">
+        <FontAwesomeIcon className="icon" icon={faMapPin} />
       </div>
-    )
-  }
+      <div className="input-group">
+        <label htmlFor="distance-select">Find me places within:</label>
+        <select id="distance-select" onChange={handleChange}>
+          <option value="1000">1 km</option>
+          <option value="2000">2 km</option>
+          <option value="5000">5 km</option>
+          <option value="10000">10 km</option>
+        </select>
+      </div>
+      <Link to='/places' className="submit">Find Places!</Link>
+    </div>
+  )
 
 }
+
 
 export default Landing
