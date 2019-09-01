@@ -3,13 +3,17 @@ import {Link} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMapPin } from '@fortawesome/free-solid-svg-icons'
 
-const Landing = ({handleRadiusData}) => {
+const Landing = ({handleRadiusData, err}) => {
 
   // sends user-selected radius back to parent component
   const handleChange = (e) => {
     handleRadiusData(e.target.value);
   }
-
+  // stores the link to '/places' if geolocation is found, otherwise displays error
+  const geolocationGateway = err ? (
+    <div className='err'>Sorry, we could not locate you. {err} </div> ) : (
+      <Link to='/places' className="submit">Find Places!</Link>
+    );
   return(
     <div className="landing">
       <h1>PlaceFinder</h1>
@@ -25,7 +29,7 @@ const Landing = ({handleRadiusData}) => {
           <option value="10000">10 km</option>
         </select>
       </div>
-      <Link to='/places' className="submit">Find Places!</Link>
+      {geolocationGateway}
     </div>
   )
 

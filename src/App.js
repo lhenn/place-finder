@@ -10,24 +10,40 @@ class App extends Component {
   state = {
     lat: '',
     lng: '',
-    radius:1000
+    radius:1000,
+    err: ''
   }
   componentDidMount() {
     this.findUserLocation();
   }
   findUserLocation = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.updatePosition);
+      navigator.geolocation.getCurrentPosition(this.updateLocation, this.updateLocationError);
     } else {
-      console.log("Geolocation is not supported by this browser.");
+      this.setState({err:"Geolocation is not supported by this browser."});
     }
   }
-  updatePosition = (position) => {
+  updateLocation = (position) => {
     this.setState({
       lat: position.coords.latitude,
       lng: position.coords.longitude
     })
   }
+  updateLocationError = (error) => {
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        this.setState({err:"User denied the request for Geolocation."});
+        break;
+      case error.POSITION_UNAVAILABLE:
+        this.setState({err:"Location information is unavailable."});
+        break;
+      case error.TIMEOUT:
+        this.setState({err:"The request to get user location timed out."});
+        break;
+      default:
+        this.setState({err:"An unknown error occurred."});
+    }
+}
   handleRadiusData = (radius) => {
     this.setState({
       radius:radius
@@ -42,7 +58,11 @@ class App extends Component {
             <Route
               exact path='/'
               render = {(routeProps) => (
-                <Landing {...routeProps} handleRadiusData={this.handleRadiusData} />
+                <Landing
+                  {...routeProps}
+                  handleRadiusData={this.handleRadiusData}
+                  err={this.state.err}
+                  />
               )}
               />
             <Route
